@@ -50,12 +50,14 @@ const createNewTransaction = () => {
 	newTransaction.setAttribute('id', ID);
 	checkCategory(selectedCategory);
 
+	const amount = amountInput.value.startsWith('-') ? `${amountInput.value.substring(1)}` : `${amountInput.value}`;
+
 	newTransaction.innerHTML = `
         <p class="transaction-name">
         ${categoryIcon} ${nameInput.value}
         </p>
         <p class="transaction-amount">
-        ${amountInput.value} zł 
+        ${amount} zł 
         <button class="delete" onclick="deleteTransatcion(${ID})"><i class="fas fa-times"></i></button>
         </p>
     `;
