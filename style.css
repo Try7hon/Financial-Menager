@@ -174,6 +174,7 @@ h2.title {
 	height: 100%;
 	color: #fff;
 	background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%);
+	overflow: hidden;
 }
 .add-transaction-panel h2.title {
 	margin-bottom: 0;

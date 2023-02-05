@@ -32,39 +32,40 @@
             <div class="transaction-list">
                 <div class="income-area">
                     <h3>Przychód:</h3>
-                    <div class="transaction" id='0'>
+                    <!-- <div class="transaction" id='0'>
                         <p class="transaction-name"><i class="fas fa-money-bill-wave"></i> Wypłata</p>
-                        <p class="transaction-amount">2000zł <button class="delete"><i
+                        <p class="transaction-amount">2000 zł <button class="delete"><i
                                     class="fas fa-times"></i></button>
                         </p>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="expenses-area">
                     <h3>Wydatki</h3>
-                    <div class="transaction" id='1'>
+                    <!-- <div class="transaction" id='1'>
                         <p class="transaction-name"><i class="fas fa-cart-arrow-down"></i> Zakupy</p>
-                        <p class="transaction-amount">-400zł <button class="delete"><i
+                        <p class="transaction-amount">-400 zł <button class="delete"><i
                                     class="fas fa-times"></i></button>
                         </p>
                     </div>
                     <div class="transaction" id='2'>
                         <p class="transaction-name"><i class="fas fa-hamburger"></i> Jedzenie</p>
-                        <p class="transaction-amount">-100zł <button class="delete"><i
+                        <p class="transaction-amount">-100 zł <button class="delete"><i
                                     class="fas fa-times"></i></button>
                         </p>
                     </div>
                     <div class="transaction" id='3'>
                         <p class="transaction-name"><i class="fas fa-film"></i> Kino</p>
-                        <p class="transaction-amount">-50zł <button class="delete"><i class="fas fa-times"></i></button>
+                        <p class="transaction-amount">-50 zł <button class="delete"><i
+                                    class="fas fa-times"></i></button>
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
         <section class="options">
             <div>
                 <h2 class="title">Dostępne środki:</h2>
-                <p class="available-money">0zł</p>
+                <p class="available-money">0 zł</p>
             </div>
 
             <div class="controls">
@@ -95,7 +96,7 @@
 
         <label for="catergory">Wybierz kategorię:</label>
         <small>( [ + ] oznacza przychód, [ - ] oznacza wydatek)</small>
-        <select id="category">
+        <select id="category" onchange='selectCategory()'>
             <option value="none" selected disabled>Wybierz kategorię</option>
             <option value="income">[ + ] Przychód</option>
             <option value="shopping">[ - ] Zakupy</option>
