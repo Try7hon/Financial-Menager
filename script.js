@@ -20,6 +20,11 @@ let ID = 0;
 let categoryIcon;
 let selectedCategory;
 let moneyArr = [0];
+let moneyArrIn = [0];
+let moneyArrOuts = [0];
+
+let incomeBalance;
+let outsBalance;
 
 const showPanel = () => {
 	addTransactionPanel.style.display = 'flex';
@@ -50,7 +55,18 @@ const createNewTransaction = () => {
 	newTransaction.setAttribute('id', ID);
 	checkCategory(selectedCategory);
 
-	const amount = amountInput.value.startsWith('-') ? `${amountInput.value.substring(1)}` : `${amountInput.value}`;
+	categorySelect.value === 'income'
+		? moneyArrIn.push(Number(amountInput.value)) &&
+		  incomeSection.appendChild(newTransaction) &&
+		  newTransaction.classList.add('income')
+		: moneyArrOuts.push(Math.abs(Number(amountInput.value))) &&
+		  expensesSection.appendChild(newTransaction) &&
+		  newTransaction.classList.add('expense');
+
+	const amount =
+		categorySelect.value === 'income'
+			? `${amountInput.value}`
+			: `${Math.abs(amountInput.value)}` && `${amountInput.value}`;
 
 	newTransaction.innerHTML = `
         <p class="transaction-name">
@@ -62,11 +78,7 @@ const createNewTransaction = () => {
         </p>
     `;
 
-	amountInput.value > 0
-		? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income')
-		: expensesSection.appendChild(newTransaction) && newTransaction.classList.add('expense');
-
-	moneyArr.push(Number(amountInput.value));
+	moneyArr = moneyArrIn.concat(moneyArrOuts);
 	countMoney(moneyArr);
 	closePanel();
 	ID++;
@@ -94,24 +106,28 @@ const checkCategory = transaction => {
 	}
 };
 
-const countMoney = money => {
-	const newMoney = money.reduce((a, b) => a + b);
+const countMoney = () => {
+	incomeBalance = moneyArrIn.reduce((acc, move) => acc + move, 0);
+	outsBalance = moneyArrOuts.reduce((acc, move) => acc - move, 0);
+
+	const newMoney = incomeBalance + outsBalance;
 	availableMoney.textContent = `${newMoney} zł`;
 };
 
 const deleteTransatcion = id => {
 	const transactionToDelete = document.getElementById(id);
-
 	const transactionAmount = parseFloat(transactionToDelete.childNodes[3].innerText);
 	const indexOfTransaction = moneyArr.indexOf(transactionAmount);
+	const indexOfTransactionIns = moneyArrIn.indexOf(transactionAmount);
+	const indexOfTransactionOuts = moneyArrOuts.indexOf(transactionAmount);
 
 	moneyArr.splice(indexOfTransaction, 1);
 
 	transactionToDelete.classList.contains('income')
-		? incomeSection.removeChild(transactionToDelete)
-		: expensesSection.removeChild(transactionToDelete);
+		? incomeSection.removeChild(transactionToDelete) && moneyArrIn.splice(indexOfTransactionIns, 1)
+		: expensesSection.removeChild(transactionToDelete) && moneyArrOuts.splice(indexOfTransactionOuts, 1);
 
-	countMoney(moneyArr);
+	countMoney();
 };
 
 const deleteAllTransaction = () => {
